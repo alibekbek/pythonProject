@@ -1,0 +1,9 @@
+{
+     "admin": {
+          "username": "admin",
+          "password": "admin",
+          "type": "admin",
+          "isAdmin": true,
+          "isLogin": true
+     }
+}
