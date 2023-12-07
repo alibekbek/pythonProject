@@ -45,6 +45,7 @@ class Stack:
         self.last = i
         if self.last is None:
             self.top = None
+
         return last
 
     def get_data(self):
@@ -53,4 +54,5 @@ class Stack:
         while i:
             lst.append(i.data)
             i = i.next
+
         return lst
