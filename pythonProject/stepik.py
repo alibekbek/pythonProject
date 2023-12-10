@@ -1,50 +1,34 @@
-class TreeObj:
-    def __init__(self, indx, value=None):
-        self.indx = indx
-        self.value = value
-        self.__left = None
-        self.__right = None
-
-    @property
-    def left(self):
-        return self.__left
-
-    @left.setter
-    def left(self, obj):
-        self.__left = obj
-
-    @property
-    def right(self):
-        return self.__right
-
-    @right.setter
-    def right(self, obj):
-        self.__right = obj
+class LineTo:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
 
-class DecisionTree:
-    @classmethod
-    def add_obj(cls, obj, node=None, left=True):
-        if node:
-            if left:
-                node.left = obj
-            else:
-                node.right = obj
-        return obj
+class PathLines:
+    def __init__(self, *args):
+        self.coords = list((LineTo(0, 0), ) + args)
 
-    @classmethod
-    def predict(cls, root, x):
-        obj = root
-        while obj:
-            obj_next = cls.get_next(obj, x)
-            if obj_next is None:
-                break
-            obj = obj_next
-        return obj.value
+    def get_path(self):
+        return self.coords[1:]
 
-    @classmethod
-    def get_next(cls, obj, x):
-        if x[obj.indx] == 1:
-            return obj.left
-        else:
-            return obj.right
+    def get_length(self):
+        res = 0
+        if len(self.coords) == 1:
+            return res
+        elif len(self.coords) == 2:
+            res = (self.coords[1].x ** 2 + self.coords[1].y ** 2) ** 0.5
+        for i in range(1, len(self.coords)):
+            res += ((self.coords[i].x - self.coords[i-1].x) ** 2 + (self.coords[i].y - self.coords[i-1].y) ** 2) ** 0.5
+        return res
+
+    def add_line(self, line):
+        self.coords.append(line)
+
+
+p = PathLines(LineTo(10, 0), LineTo(20, 0))
+#p = PathLines()
+p.add_line(LineTo(30, 0))
+#dist = p.get_length()
+print(p.get_path())
+print(p.get_length())
+
